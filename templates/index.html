@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview Insights</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Interview Insights</h1>
+            <p class="subtitle">Upload up to 20 sets of interview notes and get AI-powered analysis</p>
+        </header>
+
+        <!-- Upload Section -->
+        <section class="upload-section">
+            <h2>1. Add Interview Notes</h2>
+            <p class="section-desc">Upload files (.txt, .md, .pdf, .docx) and/or type notes manually below.</p>
+
+            <!-- File Upload -->
+            <div class="upload-box" id="dropZone">
+                <div class="upload-icon">📁</div>
+                <p class="upload-title">Drag & drop files here</p>
+                <p class="upload-hint">or click to browse &mdash; supports .txt, .md, .pdf, .docx</p>
+                <input type="file" id="fileInput" multiple accept=".txt,.md,.pdf,.doc,.docx" />
+            </div>
+
+            <!-- File List -->
+            <div id="fileList" class="file-list" style="display:none;">
+                <h3>Uploaded Files <span id="fileCount" class="badge">0</span></h3>
+                <ul id="fileListItems"></ul>
+            </div>
+
+            <!-- Manual Text Entry -->
+            <div class="manual-entry">
+                <h3>Or paste / type notes manually</h3>
+                <div id="textEntries">
+                    <div class="text-entry" data-index="0">
+                        <div class="text-entry-header">
+                            <label>Interview Notes</label>
+                            <button class="remove-btn" onclick="removeTextEntry(this)" title="Remove">&times;</button>
+                        </div>
+                        <textarea placeholder="Paste or type interview notes here..." rows="6"></textarea>
+                    </div>
+                </div>
+                <button class="add-entry-btn" id="addEntryBtn" onclick="addTextEntry()">+ Add another set of notes</button>
+            </div>
+
+            <!-- Counter -->
+            <div class="notes-counter">
+                <span id="totalCount">0</span> / 20 sets of notes added
+            </div>
+        </section>
+
+        <!-- Analyze Button -->
+        <section class="analyze-section">
+            <button id="analyzeBtn" class="analyze-btn" onclick="analyzeNotes()" disabled>
+                Analyze Interview Notes
+            </button>
+        </section>
+
+        <!-- Loading Indicator -->
+        <section id="loadingSection" class="loading-section" style="display:none;">
+            <div class="spinner"></div>
+            <p>Analyzing interview notes with Claude...</p>
+            <p class="loading-hint">This may take a moment depending on the volume of notes.</p>
+        </section>
+
+        <!-- Results Section -->
+        <section id="resultsSection" class="results-section" style="display:none;">
+            <div class="results-header">
+                <h2>Analysis Report</h2>
+                <p id="resultsMeta" class="results-meta"></p>
+            </div>
+            <div id="resultsContent" class="results-content">
+                <!-- Report will be rendered here -->
+            </div>
+        </section>
+
+        <!-- Error Section -->
+        <div id="errorSection" class="error-section" style="display:none;">
+            <p id="errorMessage"></p>
+        </div>
+
+        <footer class="footer">
+            <p>Interview Insights &bull; Powered by Claude AI</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
